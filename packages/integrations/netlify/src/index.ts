@@ -638,7 +638,6 @@ export default function netlifyIntegration(
 						redirects: false,
 						client: outDir,
 						server: ssrBuildDir(),
-						serverEntry: 'ssr-function.mjs',
 					},
 					session,
 					vite: {
@@ -653,11 +652,6 @@ export default function netlifyIntegration(
 						server: {
 							watch: {
 								ignored: [fileURLToPath(new URL('./.netlify/**', rootDir))],
-							},
-						},
-						build: {
-							rollupOptions: {
-								input: '@astrojs/netlify/ssr-function.js',
 							},
 						},
 					},
@@ -689,6 +683,7 @@ export default function netlifyIntegration(
 				setAdapter({
 					name: '@astrojs/netlify',
 					entryType: 'self',
+					serverEntrypoint: '@astrojs/netlify/ssr-function.js',
 					adapterFeatures: {
 						edgeMiddleware: useEdgeMiddleware,
 						staticHeaders: useStaticHeaders,
